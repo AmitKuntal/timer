@@ -35,10 +35,12 @@ export default class ClockTimer extends React.Component {
         }
     }
 
-    calculatePercentaage(){
+    getProgressBar(){
         let totalSeconds = parseInt(this.state.minutes) * 60
         let remainingSeconds = (((this.state.hour * 60) + this.state.minute) * 60 ) + this.state.seconds
-        return <span>{((totalSeconds - remainingSeconds)/ totalSeconds)*100}</span>
+        
+        return    <div style={{ width: ((totalSeconds - remainingSeconds)/ totalSeconds)*100 +"%" }} className="shadow-none flex text-center whitespace-nowrap text-black justify-center bg-green-500 h-10">
+                        </div>
     }
 
       
@@ -47,17 +49,24 @@ export default class ClockTimer extends React.Component {
     }
 
     render(){
-        return(<>
-        {this.state.stopTimer?alert("Timer stopped"):null}
-            <div>
-                <span>{this.state.hours} H : {this.state.minute} MM :{this.state.seconds} S</span>
-            </div>
-            {this.stopTimer?100:this.calculatePercentaage()}
+        return(
+        <div className="flex flex-col justify-center bg-white w-full md:w-1/2 items-center m-2 p-4 shadow-xl">
+            {this.state.stopTimer?alert("Timer stopped"):null}
+            <div className="relative pt-1 w-full">
+                    <div className="overflow-hidden text-4xl flex flex-col rounded justify-center bg-green-200 w-full">
+                        {this.state.stopTimer?
+                            <div style={{ width: "100%" }} className="shadow-none flex text-center whitespace-nowrap text-black justify-center bg-green-500 h-10">
+                            </div>
+                        :this.getProgressBar()
+                        }
 
-                <button onClick={this.stopTimer}>
-                    Stop timer
-                </button>
-            </>
+                        <span className="absolute w-full text-center">{this.state.hour} H : {this.state.minute} M :{this.state.seconds} S</span>
+                    </div>
+            </div>
+            <button className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-2 sm:px:4  border-b-2 md:border-b-4 border-red-700 hover:border-red-500 rounded  text-sm sm:text-lg mt-4" onClick={this.stopTimer}>
+                Stop timer
+            </button>
+        </div>
         )
     }
   }

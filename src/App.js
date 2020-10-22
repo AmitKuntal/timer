@@ -3,7 +3,7 @@ import './App.css';
 import Timer from './timer';
 function App() {
   return (
-    <div className="App">
+    <div className="text-gray-800 text-center bg-gray-200 w-screen h-screen flex justify-center items-center">
       <Timer />
     </div>
   );
